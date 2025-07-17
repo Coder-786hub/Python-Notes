@@ -1,0 +1,133 @@
+from tkinter import *
+import tkinter as tk
+from geopy.geocoders import Nominatim
+from tkinter import ttk,messagebox
+from timezonefinder import TimezoneFinder
+from datetime import datetime
+import requests
+import pytz
+
+root=Tk()
+root.geometry("900x500+300+200")
+root.title("Weather App")
+root.resizable(False,False)
+
+image_icon = PhotoImage(file=r"E:\Desktop\python\notes\icon.png")
+root.iconphoto(False,image_icon)
+
+
+# Replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key
+API_KEY = '6c13eaca03c4324f9f7b348875ffa2ef'
+
+def getWeather():
+    city = textfield.get()
+
+    geolocator = Nominatim(user_agent="geoapiExercises")
+    try:
+        location = geolocator.geocode(city)
+        if location:
+            obj = TimezoneFinder()
+            result = obj.timezone_at(lng=location.longitude, lat=location.latitude)
+            if result:
+                home = pytz.timezone(result)
+                local_time = datetime.now(home)
+                current_time = local_time.strftime("%I:%M %p")
+                clock.config(text=current_time)
+                name.config(text="CURRENT WEATHER")
+
+                # Weather
+                lat, lon = location.latitude, location.longitude
+                api = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+
+                response = requests.get(api)
+                json_data = response.json()
+
+                if json_data.get('cod') == 200:
+                    condition = json_data['weather'][0]['main']
+                    description = json_data['weather'][0]['description']
+                    temp = int(json_data['main']['temp'])
+                    pressure = json_data['main']['pressure']
+                    humidity = json_data['main']['humidity']
+                    wind = json_data['wind']['speed']
+
+                    t.config(text=f"{temp}°C")
+                    c.config(text=f"{condition} | FEELS LIKE {temp}°C")
+                    w.config(text=f"{wind} m/s")
+                    h.config(text=f"{humidity}%")
+                    d.config(text=description)
+                    p.config(text=f"{pressure} hPa")
+                else:
+                    messagebox.showerror("Error", f"Weather data not found: {json_data.get('message')}")
+            else:
+                messagebox.showerror("Error", "Timezone not found.")
+        else:
+            messagebox.showerror("Error", "City not found.")
+    except Exception as e:
+        messagebox.showerror("Error", str(e))
+
+
+# search box
+search_image= PhotoImage(file=r"E:\Desktop\python\notes\search.png")
+myimage=Label(image=search_image)
+# myimage.grid(row=0,column=3)
+myimage.place(x=20,y=20)
+
+textfield= tk.Entry(root,justify="center",width=17,font=("poppins",25,"bold"),bg="#404040",border=0,fg="white")
+# textfield.grid(row=0,column=3)
+textfield.place(x=50,y=40)
+
+# search_icon
+Serach_icon = PhotoImage(file=r"E:\Desktop\python\notes\Copy of search_icon.png")
+myimage_icon = Button(image=Serach_icon,borderwidth=0,cursor="hand2",bg="#404040",command=getWeather)
+myimage_icon.place(x=400,y=34)
+
+# logo
+logo_image=PhotoImage(file=r"E:\Desktop\python\notes\Copy of logo.png")
+logo=Label(image=logo_image)
+logo.place(x=150,y=100)
+
+# bottom box
+
+Frame_image=PhotoImage(file=r"E:\Desktop\python\notes\Copy of box.png")
+Frame_myimage=Label(image=Frame_image)
+Frame_myimage.pack(padx=5,pady=5,side=BOTTOM)
+
+# Time
+
+name=Label(root,font=("arial",15,"bold"))
+name.place(x=30,y=100)
+clock=Label(root,font=("Helvetica",20))
+clock.place(x=30,y=130)
+
+# label
+label1= Label(root,text="WIND",font=("Helvetica,15,bold"),fg="white",bg="#1ab5ef")
+label1.place(x=120,y=400)
+
+label2= Label(root,text="HUMIDITY",font=("Helvetica,15,bold"),fg="white",bg="#1ab5ef")
+label2.place(x=240,y=400)
+
+label3= Label(root,text="DESCRIPTION",font=("Helvetica,15,bold"),fg="white",bg="#1ab5ef")
+label3.place(x=440,y=400)
+
+label4= Label(root,text="PRESSURE",font=("Helvetica,15,bold"),fg="white",bg="#1ab5ef")
+label4.place(x=655,y=400)
+
+t=Label(font=("arial",70,"bold"),fg="#ee666d")
+t.place(x=400,y=150)
+c=Label(font=("arial",15,"bold"))
+c.place(x=400,y=250)
+
+w=Label(text="...",font=("arial",20,"bold"),bg="#1ab5ef")
+w.place(x=120,y=430)
+
+
+h=Label(text="...",font=("arial",20,"bold"),bg="#1ab5ef")
+h.place(x=250,y=430)
+
+d=Label(text="...",font=("arial",20,"bold"),bg="#1ab5ef")
+d.place(x=460,y=430)
+
+p=Label(text="...",font=("arial",20,"bold"),bg="#1ab5ef")
+p.place(x=660,y=430)
+
+root.mainloop()

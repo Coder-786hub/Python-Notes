@@ -1,0 +1,39 @@
+
+Python Intro
+Python Syntax
+Python Comments
+Python Variables
+Python Data Types
+Python Numbers
+Python Casting
+Python Booleans
+Python Operators
+Python Strings
+Python Lists
+Python Tuples
+Python Sets
+Python Dictionaries
+Python If...Else
+Python While Loops
+Python For Loops
+Python Functions
+Python Lambda
+Python Arrays
+Python Classes/Objects
+Python Inheritance
+Python Iterators
+Python Polymorphism
+Encapsulation
+Python Try...Except
+Python User Input
+
+File Handling
+Python File Handling
+Python Read Files
+Python Write/Create Files
+Python Delete Files
+=======================================================Python Modules===============================================
+
+NumPy Tutorial
+Pandas Tutorial
+Python Matplotlib
