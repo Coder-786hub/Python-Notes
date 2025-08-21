@@ -32,7 +32,7 @@
 
 # # Example
 
-# a = 33
+# a = 33b
 # b = 33
 # if b > a:
 #   print("b is greater than a")

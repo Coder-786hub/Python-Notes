@@ -69,14 +69,39 @@
 
 
 
-class Person:
-  def __init__(self, name, age):
-    self.name = name
-    self.age = age
+# class Person:
+#   def __init__(self, name, age):
+#     self.name = name
+#     self.age = age
 
-  def __str__(self):
-    return f"{self.name}({self.age})"
+#   def __str__(self):
+#     return f"{self.name}({self.age})"
   
-p1 = Person("John", 36)
-print(p1)
+# p1 = Person("John", 36)
+# print(p1)
+
+
+
+# var = 20
+# var2 = 30
+# print(var + var2)
+# 20 +  30 = 50
+
+# 1 we can not start our variable with any number
+# 2 we can not use specieal char like @ # $ % & 
+# 3 we want to use special or space so we can only _
+# 4 we can not use reserved key word as variable
+
+# 12var = 20
+# print(var)
+
+# var_var = 20
+# print(var_var)
+
+# import keyword
+
+# print(keyword.kwlist)
+
+# ['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+
 
